@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            
+       xmlns:domestic="clr-namespace:Xam4Demo.Views.Domestic"
+       xmlns:animals="clr-namespace:Xam4Demo.Views"
+       x:Class="Xam4Demo.AppShell" FlyoutIcon="animals">
+    <Shell.FlyoutHeader>
+        
+    </Shell.FlyoutHeader>
+    <FlyoutItem Title="Animals">
+        <Tab Title="Domestics" Icon="">
+            <ShellContent Title="Dog">
+                <domestic:DogPage />
+            </ShellContent>
+            <ShellContent Title="Cat">
+                <domestic:CatPage/>
+            </ShellContent>
+        </Tab>
+        <ShellContent Title="Monkey">
+            <animals:MonkeyPage/>
+        </ShellContent>
+        <ShellContent Title="Panda">
+            <animals:PandaPage/>
+        </ShellContent>
+
+    </FlyoutItem>
+</Shell>
