@@ -114,6 +114,26 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\monkey.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\monkey.imageset\monkey%401x.png" />
+    <ImageAsset Include="Assets.xcassets\monkey.imageset\monkey%402x.png" />
+    <ImageAsset Include="Assets.xcassets\monkey.imageset\monkey%403x.png" />
+    <ImageAsset Include="Assets.xcassets\panda.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\panda.imageset\panda%401x.png" />
+    <ImageAsset Include="Assets.xcassets\panda.imageset\panda%402x.png" />
+    <ImageAsset Include="Assets.xcassets\panda.imageset\panda%403x.png" />
+    <ImageAsset Include="Assets.xcassets\cat.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\cat.imageset\cat%401x.png" />
+    <ImageAsset Include="Assets.xcassets\cat.imageset\cat%402x.png" />
+    <ImageAsset Include="Assets.xcassets\cat.imageset\cat%403x.png" />
+    <ImageAsset Include="Assets.xcassets\dog.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\dog.imageset\dog%401x.png" />
+    <ImageAsset Include="Assets.xcassets\dog.imageset\dog%402x.png" />
+    <ImageAsset Include="Assets.xcassets\dog.imageset\dog%403x.png" />
+    <ImageAsset Include="Assets.xcassets\animals.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\animals.imageset\animals%401x.png" />
+    <ImageAsset Include="Assets.xcassets\animals.imageset\animals%402x.png" />
+    <ImageAsset Include="Assets.xcassets\animals.imageset\animals%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,8 +150,11 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Xam4Demo\Xam4Demo.csproj">
-      <Project>{379B227F-B4FA-45DE-9B46-8D612721B196}</Project>
+      <Project>{7CAAF561-7137-486C-9575-D39F621E55F6}</Project>
       <Name>Xam4Demo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\Animal.imageset\" />
   </ItemGroup>
 </Project>
