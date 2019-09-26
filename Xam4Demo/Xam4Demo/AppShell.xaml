@@ -10,7 +10,7 @@
     </Shell.FlyoutHeader>
     <FlyoutItem Title="Animals" Icon="animals.png">
         <Tab Title="Domestics" Icon="dog.png" >
-            <ShellContent Title="Dog" >
+            <ShellContent Title="BOK BOK" >
                 <domestic:DogPage />
             </ShellContent>
             <ShellContent Title="Cat" Icon="cat.png">
