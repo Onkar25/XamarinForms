@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using HouseOfTrader.Models;
+using HouseOfTrader.Models.BhavCopy;
 
 namespace HouseOfTrader.Services
 {
     public interface IFetchData
     {
-        List<FutureBhavCopy> getProducts(string filename);
+        List<FutureBhavCopy> GetFutureBhavCopy(string filename);
+        List<CashBhavCopy> GetCashBhavCopy(string filename);
 
     }
 }

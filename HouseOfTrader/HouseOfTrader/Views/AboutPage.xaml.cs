@@ -18,9 +18,11 @@ namespace HouseOfTrader.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            await ReadExcel();
+            //await ReadFutureBhavCopy();
+            await ReadCashBhavCopy();
         }
-        public async Task ReadExcel()
+
+        private async Task ReadCashBhavCopy()
         {
             try
             {
@@ -28,7 +30,27 @@ namespace HouseOfTrader.Views
                 if (file != null)
                 {
                     MemoryStream fileStream = new MemoryStream(file.DataArray);
-                    var products = DependencyService.Get<IFetchData>().getProducts(file.FilePath);
+                    var products = DependencyService.Get<IFetchData>().GetCashBhavCopy(file.FilePath);
+                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception : " + ex.Message);
+            }
+        }
+
+        private async Task ReadFutureBhavCopy()
+        {
+            try
+            {
+                var file = await CrossFilePicker.Current.PickFile();
+                if (file != null)
+                {
+                    MemoryStream fileStream = new MemoryStream(file.DataArray);
+                    var products = DependencyService.Get<IFetchData>().GetFutureBhavCopy(file.FilePath);
+                    //FORMULA 
                     var res = from element in products
                               where element.INSTRUMENT == "FUTIDX" || element.INSTRUMENT == "FUTSTK"
                               group element by new
@@ -41,7 +63,7 @@ namespace HouseOfTrader.Views
                               select groups.OrderBy(p => p.OPEN_INT).Take(2).ToList();
                     Debug.WriteLine("TOTAL COUNT" + res.Count());
                 }
-               
+
             }
             catch (Exception ex)
             {
