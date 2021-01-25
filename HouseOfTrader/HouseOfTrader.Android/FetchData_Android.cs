@@ -3,58 +3,74 @@ using System.Collections.Generic;
 using System.IO;
 using HouseOfTrader.Droid;
 using HouseOfTrader.Models.BhavCopy;
+using HouseOfTrader.Models.Volatility;
 using HouseOfTrader.Services;
 using Xamarin.Forms;
-
 [assembly: Dependency(typeof(FetchData_Android))]
 namespace HouseOfTrader.Droid
 {
     public class FetchData_Android : IFetchData
     {
-        public FetchData_Android()
-        {
-        }
-
+        double DEFAULTDOUBLE = 0.0;
         public List<CashBhavCopy> GetCashBhavCopy(string filename)
         {
             List<CashBhavCopy> masters = new List<CashBhavCopy>();
-
             using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
             {
                 string line = sr.ReadLine();
                 while (line != null)
                 {
                     var data = line.Split(',');
-                    var obj = new CashBhavCopy
-                    {
-                        SYMBOL = data[0],
-                        SERIES = data[1],
-                        DATE1 = DateTime.Parse(data[2]),
-                        PREV_CLOSE = double.Parse(data[3]),
-                        OPEN_PRICE = double.Parse(data[4]),
-                        HIGH_PRICE = double.Parse(data[5]),
-                        LOW_PRICE = double.Parse(data[6]),
-                        LAST_PRICE = double.Parse(data[7]),
-                        CLOSE_PRICE = double.Parse(data[8]),
-                        AVG_PRICE = double.Parse(data[9]),
-                        TTL_TRD_QNTY = double.Parse(data[10]),
-                        TURNOVER_LACS = double.Parse(data[11]),
-                        NO_OF_TRADES = double.Parse(data[12]),
-                        DELIV_QTY = double.Parse(data[13]),
-                        DELIV_PER = double.Parse(data[14])
-                    };
+                    var obj = new CashBhavCopy();
+                    obj.SYMBOL = data[0];
+                    obj.SERIES = data[1];
+                    obj.DATE1 = DateTime.Parse(data[2]);
+                    obj.PREV_CLOSE = Double.TryParse(data[3], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.OPEN_PRICE = Double.TryParse(data[4], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.HIGH_PRICE = Double.TryParse(data[5], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.LOW_PRICE = Double.TryParse(data[6], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.LAST_PRICE = Double.TryParse(data[7], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CLOSE_PRICE = Double.TryParse(data[8], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.AVG_PRICE = Double.TryParse(data[9], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.TTL_TRD_QNTY = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.TURNOVER_LACS = Double.TryParse(data[11], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.NO_OF_TRADES = Double.TryParse(data[12], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.DELIV_QTY = Double.TryParse(data[13], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.DELIV_PER = Double.TryParse(data[14], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
                     masters.Add(obj);
                     line = sr.ReadLine();
                 }
             }
             return masters;
         }
-
+        public List<CMVolt> GetCMVolt(string filename)
+        {
+            List<CMVolt> masters = new List<CMVolt>();
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
+            {
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    var data = line.Split(',');
+                    var obj = new CMVolt();
+                    obj.Date = DateTime.Parse(data[0]);
+                    obj.Symbol = data[1];
+                    obj.UnderlyingClosePriceA = Double.TryParse(data[2], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.UnderlyingPreviousDayClosePriceB = Double.TryParse(data[3], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.UnderlyingLogReturnsCLNAB = Double.TryParse(data[4], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.PreviousDayUnderlyingVolatilityD = Double.TryParse(data[5], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CurrentDayUnderlyingDailyVolatilityE = Double.TryParse(data[6], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.UnderlyingAnnualisedVolatilityF = Double.TryParse(data[7], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    masters.Add(obj);
+                    line = sr.ReadLine();
+                }
+            }
+            return masters;
+        }
         public List<FutureBhavCopy> GetFutureBhavCopy(string filename)
         {
             List<FutureBhavCopy> masters = new List<FutureBhavCopy>();
-            
-            using (StreamReader sr = new StreamReader(File.Open(filename,FileMode.Open)))
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
             {
                 string line = sr.ReadLine();
                 while (line != null)

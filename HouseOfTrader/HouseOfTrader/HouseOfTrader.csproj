@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\BhavCopy\" />
+    <Folder Include="Models\Volatility\" />
   </ItemGroup>
 </Project>
