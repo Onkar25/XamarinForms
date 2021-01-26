@@ -19,7 +19,26 @@ namespace HouseOfTrader.Views
             base.OnAppearing();
             //await ReadFutureBhavCopy();
             //await ReadCashBhavCopy();
-            await ReadCMVolt();
+            //await ReadCMVolt();
+            await ReadCFInsiderTrading();
+        }
+
+        private async Task ReadCFInsiderTrading()
+        {
+            try
+            {
+                var file = await CrossFilePicker.Current.PickFile();
+                if (file != null)
+                {
+                    MemoryStream fileStream = new MemoryStream(file.DataArray);
+                    var products = DependencyService.Get<IFetchData>().GetCFInsiderTrading(file.FilePath);
+                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception : " + ex.Message);
+            }
         }
         private async Task ReadCMVolt()
         {

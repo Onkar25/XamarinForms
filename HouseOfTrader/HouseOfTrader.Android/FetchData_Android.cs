@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using HouseOfTrader.Droid;
 using HouseOfTrader.Models.BhavCopy;
+using HouseOfTrader.Models.InsiderTrade;
 using HouseOfTrader.Models.Volatility;
 using HouseOfTrader.Services;
 using Xamarin.Forms;
@@ -43,6 +44,53 @@ namespace HouseOfTrader.Droid
             }
             return masters;
         }
+
+        public List<CFInsiderTrading> GetCFInsiderTrading(string filename)
+        {
+            List<CFInsiderTrading> masters = new List<CFInsiderTrading>();
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
+            {
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    var data = line.Split(',');
+                    var obj = new CFInsiderTrading();
+                    obj.SYMBOL = data[0];
+                    obj.COMPANY = data[1];
+                    obj.REGULATION = data[2];
+                    obj.NAMEOFTHEACQUIRERDISPOSER = data[3];
+                    obj.CATEGORYOFPERSON = data[4];
+                    obj.TYPEOFSECURITYPRIOR = data[5];
+                    obj.NOOFSECURITYPRIOR = data[6];
+                    obj.SHAREHOLDINGPRIOR = Double.TryParse(data[7], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.TYPEOFSECURITYACQUIREDDISPLOSED = data[8];
+                    obj.NOOFSECURITIESACQUIREDDISPLOSED = Double.TryParse(data[9], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.VALUEOFSECURITYACQUIREDDISPLOSED = data[10];
+                    obj.ACQUISITIONDISPOSALTRANSACTIONTYPE = data[11];
+                    obj.TYPEOFSECURITYPOST = data[12];
+                    obj.NOOFSECURITYPOST = data[13];
+                    obj.POST = data[14];
+                    obj.DATEOFALLOTMENTACQUISITIONFROM = data[15];
+                    obj.DATEOFALLOTMENTACQUISITIONTO = data[16];
+                    obj.DATEOFINITMATIONTOCOMPANY = data[17];
+                    obj.MODEOFACQUISITION = data[18];
+                    obj.DERIVATIVETYPESECURITY = data[19];
+                    obj.DERIVATIVECONTRACTSPECIFICATION = data[20];
+                    obj.NOTIONALVALUEBUY = Double.TryParse(data[21], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.NUMBEROFUNITSCONTRACTLOTSIZEBUY = Double.TryParse(data[22], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.NOTIONALVALUESELL = Double.TryParse(data[23], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.NUMBEROFUNITSCONTRACTLOTSIZESELL = Double.TryParse(data[24], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.EXCHANGE = data[25];
+                    obj.REMARK = data[26];
+                    obj.BROADCASTEDATEANDTIME = data[27];
+                    obj.XBRL = data[28];
+                    masters.Add(obj);
+                    line = sr.ReadLine();
+                }
+            }
+            return masters;
+        }
+
         public List<CMVolt> GetCMVolt(string filename)
         {
             List<CMVolt> masters = new List<CMVolt>();
