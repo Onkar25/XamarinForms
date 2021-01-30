@@ -6,6 +6,7 @@ using HouseOfTrader.iOS;
 using HouseOfTrader.Models.BhavCopy;
 using HouseOfTrader.Models.BulkDeal;
 using HouseOfTrader.Models.InsiderTrade;
+using HouseOfTrader.Models.InsiderTrade.PledgeData;
 using HouseOfTrader.Models.Volatility;
 using HouseOfTrader.Services;
 using Xamarin.Forms;
@@ -15,6 +16,45 @@ namespace HouseOfTrader.iOS
     public class FetchData_ios : IFetchData
     {
         double DEFAULTDOUBLE = 0.0;
+
+        public List<CFPledgeData> GetCFPledgeData(string filename)
+        {
+            List<CFPledgeData> masters = new List<CFPledgeData>();
+            try
+            {
+                using (StreamReader sr = new StreamReader(File.OpenRead(filename)))
+                {
+                    string line1 = sr.ReadLine();
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        var data = line.Split(',');
+                        var obj = new CFPledgeData();
+                        obj.NAMEOFCOMPANY = data[0];
+                        obj.TOTALNOOFISSUEDSHARESABC = Double.TryParse(data[1], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.TOTALPROMOTERHOLDINGNOOFSHARESA = Double.TryParse(data[2], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.TOTALPROMOTERHOLDINGAABC = data[3];
+                        obj.TOTALPUBLICHOLDINGB = Double.TryParse(data[4], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.PROMOTERSHARESENCUMBEREDASOFLASTQUARTERNOOFSHARESX = data[5];
+                        obj.PROMOTERSHARESENCUMBEREDASOFLASTQUARTEROFPROMOTERSHARESXA = data[6];
+                        obj.PROMOTERSHARESENCUMBEREDASOFLASTQUARTEROFTOTALSHARESXABC = data[7];
+                        //obj.DISCLOSUREMADEBYPROMOTERS = DateTime.Parse(data[8]);
+                        obj.DISCLOSUREMADEBYPROMOTERS = data[8];
+                        obj.NOOFSHARESPLEDGEDINTHEDEPOSITORYSYSTEMNOOFSHARESPLEDGED = data[9];
+                        obj.NOOFSHARESPLEDGEDINTHEDEPOSITORYSYSTEMTOTALNOOFDEMATSHARES = data[10];
+                        obj.PLEDGEDEMAT = data[11];
+                        masters.Add(obj);
+                        line = sr.ReadLine();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception : " + ex.Message);
+            }
+            return masters;
+        }
+
 
         public List<Bulk> GetBulkData(string filename)
         {
@@ -147,6 +187,7 @@ namespace HouseOfTrader.iOS
             return masters;
         }
 
+        
         public List<CMVolt> GetCMVolt(string filename)
         {
             List<CMVolt> masters = new List<CMVolt>();
