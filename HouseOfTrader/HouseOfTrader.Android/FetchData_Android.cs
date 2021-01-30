@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using HouseOfTrader.Droid;
 using HouseOfTrader.Models.BhavCopy;
+using HouseOfTrader.Models.BulkDeal;
 using HouseOfTrader.Models.InsiderTrade;
 using HouseOfTrader.Models.Volatility;
 using HouseOfTrader.Services;
@@ -13,6 +14,33 @@ namespace HouseOfTrader.Droid
     public class FetchData_Android : IFetchData
     {
         double DEFAULTDOUBLE = 0.0;
+
+        public List<Bulk> GetBulkData(string filename)
+        {
+            List<Bulk> masters = new List<Bulk>();
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
+            {
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    var data = line.Split(',');
+                    var obj = new Bulk();
+                    obj.Date = data[0];
+                    obj.Symbol = data[1];
+                    obj.SecurityName = data[2];
+                    obj.ClientName = data[3];
+                    obj.BuySell = data[4];
+                    obj.QuantityTraded = Double.TryParse(data[5], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.TradePriceWghtAvgPrice = Double.TryParse(data[6], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Remarks = data[7];
+                    //obj.Filler1 = Double.TryParse(data[8], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    masters.Add(obj);
+                    line = sr.ReadLine();
+                }
+            }
+            return masters;
+        }
+
         public List<CashBhavCopy> GetCashBhavCopy(string filename)
         {
             List<CashBhavCopy> masters = new List<CashBhavCopy>();

@@ -14,5 +14,6 @@
     <Folder Include="Models\BhavCopy\" />
     <Folder Include="Models\Volatility\" />
     <Folder Include="Models\InsiderTrade\" />
+    <Folder Include="Models\BulkDeal\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HouseOfTrader.Models.BhavCopy;
+using HouseOfTrader.Models.BulkDeal;
 using HouseOfTrader.Models.InsiderTrade;
 using HouseOfTrader.Models.Volatility;
 
@@ -11,6 +12,6 @@ namespace HouseOfTrader.Services
         List<CashBhavCopy> GetCashBhavCopy(string filename);
         List<CMVolt> GetCMVolt(string filename);
         List<CFInsiderTrading> GetCFInsiderTrading(string filename);
-
+        List<Bulk> GetBulkData(string filename);
     }
 }
