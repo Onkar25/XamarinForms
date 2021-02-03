@@ -6,6 +6,7 @@ using HouseOfTrader.Models.BhavCopy;
 using HouseOfTrader.Models.BulkDeal;
 using HouseOfTrader.Models.InsiderTrade;
 using HouseOfTrader.Models.InsiderTrade.PledgeData;
+using HouseOfTrader.Models.PreOpenMarket;
 using HouseOfTrader.Models.Volatility;
 using HouseOfTrader.Services;
 using Xamarin.Forms;
@@ -205,6 +206,35 @@ namespace HouseOfTrader.Droid
                         TIMESTAMP = DateTime.Parse(data[14]),
                         Filler1 = data[15]
                     };
+                    masters.Add(obj);
+                    line = sr.ReadLine();
+                }
+            }
+            return masters;
+        }
+
+        public List<MWPreOpenMarket> GetMWPreOpenMarket(string filename)
+        {
+            List<MWPreOpenMarket> masters = new List<MWPreOpenMarket>();
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
+            {
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    var data = line.Split(',');
+                    var obj = new MWPreOpenMarket();
+                    obj.SYMBOL = data[0];
+                    obj.PREVCLOSE = Double.TryParse(data[1], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.IEPPRICE = Double.TryParse(data[2], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CHNG = Double.TryParse(data[3], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CHNG1 = Double.TryParse(data[4], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.FINALPRICE = Double.TryParse(data[5], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.FINALQUANTITY = Double.TryParse(data[6], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.VALUE = data[7];
+                    obj.FFMCAP = data[8];
+                    obj.NM52WH = data[9];
+                    obj.NM52WL = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+
                     masters.Add(obj);
                     line = sr.ReadLine();
                 }

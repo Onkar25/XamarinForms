@@ -16,5 +16,6 @@
     <Folder Include="Models\InsiderTrade\" />
     <Folder Include="Models\BulkDeal\" />
     <Folder Include="Models\InsiderTrade\PledgeData\" />
+    <Folder Include="Models\PreOpenMarket\" />
   </ItemGroup>
 </Project>

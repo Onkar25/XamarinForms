@@ -3,6 +3,7 @@ using HouseOfTrader.Models.BhavCopy;
 using HouseOfTrader.Models.BulkDeal;
 using HouseOfTrader.Models.InsiderTrade;
 using HouseOfTrader.Models.InsiderTrade.PledgeData;
+using HouseOfTrader.Models.PreOpenMarket;
 using HouseOfTrader.Models.Volatility;
 
 namespace HouseOfTrader.Services
@@ -15,5 +16,6 @@ namespace HouseOfTrader.Services
         List<CFInsiderTrading> GetCFInsiderTrading(string filename);
         List<Bulk> GetBulkData(string filename);
         List<CFPledgeData> GetCFPledgeData(string filename);
+        List<MWPreOpenMarket> GetMWPreOpenMarket(string filename);
     }
 }

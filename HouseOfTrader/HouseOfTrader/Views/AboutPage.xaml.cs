@@ -22,7 +22,26 @@ namespace HouseOfTrader.Views
             //await ReadCMVolt();
             //await ReadCFInsiderTrading();
             //await ReadBulk();
-            await ReadCFPledgeData();
+            //await ReadCFPledgeData();
+            await ReadMWPreOpenMarket();
+        }
+
+        private async Task ReadMWPreOpenMarket()
+        {
+            try
+            {
+                var file = await CrossFilePicker.Current.PickFile();
+                if (file != null)
+                {
+                    MemoryStream fileStream = new MemoryStream(file.DataArray);
+                    var products = DependencyService.Get<IFetchData>().GetMWPreOpenMarket(file.FilePath);
+                    Debug.WriteLine("TOTAL COUNT " + products.Count());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception : " + ex.Message);
+            }
         }
 
         private async Task ReadCFPledgeData()
@@ -34,7 +53,7 @@ namespace HouseOfTrader.Views
                 {
                     MemoryStream fileStream = new MemoryStream(file.DataArray);
                     var products = DependencyService.Get<IFetchData>().GetCFPledgeData(file.FilePath);
-                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                    Debug.WriteLine("TOTAL COUNT " + products.Count());
                 }
             }
             catch (Exception ex)
@@ -52,7 +71,7 @@ namespace HouseOfTrader.Views
                 {
                     MemoryStream fileStream = new MemoryStream(file.DataArray);
                     var products = DependencyService.Get<IFetchData>().GetBulkData(file.FilePath);
-                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                    Debug.WriteLine("TOTAL COUNT " + products.Count());
                 }
             }
             catch (Exception ex)
@@ -70,7 +89,7 @@ namespace HouseOfTrader.Views
                 {
                     MemoryStream fileStream = new MemoryStream(file.DataArray);
                     var products = DependencyService.Get<IFetchData>().GetCFInsiderTrading(file.FilePath);
-                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                    Debug.WriteLine("TOTAL COUNT " + products.Count());
                 }
             }
             catch (Exception ex)
@@ -87,7 +106,7 @@ namespace HouseOfTrader.Views
                 {
                     MemoryStream fileStream = new MemoryStream(file.DataArray);
                     var products = DependencyService.Get<IFetchData>().GetCMVolt(file.FilePath);
-                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                    Debug.WriteLine("TOTAL COUNT " + products.Count());
                 }
             }
             catch (Exception ex)
@@ -104,7 +123,7 @@ namespace HouseOfTrader.Views
                 {
                     MemoryStream fileStream = new MemoryStream(file.DataArray);
                     var products = DependencyService.Get<IFetchData>().GetCashBhavCopy(file.FilePath);
-                    Debug.WriteLine("TOTAL COUNT" + products.Count());
+                    Debug.WriteLine("TOTAL COUNT " + products.Count());
                 }
             }
             catch (Exception ex)
@@ -132,7 +151,7 @@ namespace HouseOfTrader.Views
                               }
                               into groups
                               select groups.OrderBy(p => p.OPEN_INT).Take(2).ToList();
-                    Debug.WriteLine("TOTAL COUNT" + res.Count());
+                    Debug.WriteLine("TOTAL COUNT " + res.Count());
                 }
             }
             catch (Exception ex)
