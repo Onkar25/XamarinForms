@@ -1,10 +1,5 @@
 ﻿using System.Collections.Generic;
-using HouseOfTrader.Models.BhavCopy;
-using HouseOfTrader.Models.BulkDeal;
-using HouseOfTrader.Models.InsiderTrade;
-using HouseOfTrader.Models.InsiderTrade.PledgeData;
-using HouseOfTrader.Models.PreOpenMarket;
-using HouseOfTrader.Models.Volatility;
+using HouseOfTrader.Models;
 
 namespace HouseOfTrader.Services
 {
@@ -17,5 +12,6 @@ namespace HouseOfTrader.Services
         List<Bulk> GetBulkData(string filename);
         List<CFPledgeData> GetCFPledgeData(string filename);
         List<MWPreOpenMarket> GetMWPreOpenMarket(string filename);
+        List<BseSlb> GetBseSlb(string filename);
     }
 }

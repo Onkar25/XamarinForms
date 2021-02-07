@@ -17,5 +17,8 @@
     <Folder Include="Models\BulkDeal\" />
     <Folder Include="Models\InsiderTrade\PledgeData\" />
     <Folder Include="Models\PreOpenMarket\" />
+    <Folder Include="Models\SlbsBhavCopy\" />
+    <Folder Include="Views\BhavCopy\" />
+    <Folder Include="Views\Volatility\" />
   </ItemGroup>
 </Project>

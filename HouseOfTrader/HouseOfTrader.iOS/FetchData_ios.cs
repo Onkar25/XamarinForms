@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using HouseOfTrader.iOS;
-using HouseOfTrader.Models.BhavCopy;
-using HouseOfTrader.Models.BulkDeal;
-using HouseOfTrader.Models.InsiderTrade;
-using HouseOfTrader.Models.InsiderTrade.PledgeData;
-using HouseOfTrader.Models.PreOpenMarket;
-using HouseOfTrader.Models.Volatility;
+using HouseOfTrader.Models;
 using HouseOfTrader.Services;
 using Xamarin.Forms;
 [assembly: Dependency(typeof(FetchData_ios))]
@@ -287,6 +282,58 @@ namespace HouseOfTrader.iOS
                         obj.NM52WH = data[9];
                         obj.NM52WL = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
                         
+                        masters.Add(obj);
+                        line = sr.ReadLine();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception : " + ex.Message);
+            }
+            return masters;
+        }
+
+        public List<BseSlb> GetBseSlb(string filename)
+        {
+            List<BseSlb> masters = new List<BseSlb>();
+            try
+            {
+                using (StreamReader sr = new StreamReader(File.OpenRead(filename)))
+                {
+                    string line1 = sr.ReadLine();
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        var data = line.Split(',');
+                        var obj = new BseSlb();
+                        obj.Segment = data[0];
+                        obj.Txn_Date = data[1];
+                        obj.SLB_Code = Double.TryParse(data[2], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.SLB_Symbol = data[3];
+                        obj.Cash_Code = Double.TryParse(data[4], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Cash_Symbol = data[5];
+                        obj.Scrip_Name = data[6];
+                        obj.Expiry_Date = DateTime.Parse(data[7]);
+                        obj.FC_Type = data[8];
+                        obj.ISIN_Code = data[9];
+                        obj.Open_Price = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.High_Price = Double.TryParse(data[11], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Low_Price = Double.TryParse(data[12], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Close_Price = Double.TryParse(data[13], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.No_of_Trades = Double.TryParse(data[14], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Total_Quantity = Double.TryParse(data[15], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Net_Turnover = Double.TryParse(data[16], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Cash_PDCP = Double.TryParse(data[17], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Underlying_Value = Double.TryParse(data[18], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Cash_TDCP = Double.TryParse(data[19], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Avg_Qty_Per_Txn = Double.TryParse(data[20], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Avg_LFee_Per_Share = Double.TryParse(data[21], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Annualized_Yield = Double.TryParse(data[22], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                        obj.Filler02 = data[23];
+                        obj.Filler03 = data[24];
+                        obj.Filler04 = data[25];
+                        obj.Filler05 = data[26];
                         masters.Add(obj);
                         line = sr.ReadLine();
                     }

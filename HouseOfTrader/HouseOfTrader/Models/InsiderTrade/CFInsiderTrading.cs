@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HouseOfTrader.Models.InsiderTrade
+namespace HouseOfTrader.Models
 {
     public class CFInsiderTrading
     {

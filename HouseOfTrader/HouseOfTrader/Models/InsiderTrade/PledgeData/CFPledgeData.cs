@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HouseOfTrader.Models.InsiderTrade.PledgeData
+namespace HouseOfTrader.Models
 {
     public class CFPledgeData
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HouseOfTrader.Models.Volatility
+namespace HouseOfTrader.Models
 {
     public class CMVolt
     {

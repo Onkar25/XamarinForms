@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using HouseOfTrader.Droid;
-using HouseOfTrader.Models.BhavCopy;
-using HouseOfTrader.Models.BulkDeal;
-using HouseOfTrader.Models.InsiderTrade;
-using HouseOfTrader.Models.InsiderTrade.PledgeData;
-using HouseOfTrader.Models.PreOpenMarket;
-using HouseOfTrader.Models.Volatility;
+using HouseOfTrader.Models;
 using HouseOfTrader.Services;
 using Xamarin.Forms;
 [assembly: Dependency(typeof(FetchData_Android))]
@@ -66,7 +61,6 @@ namespace HouseOfTrader.Droid
                     obj.QuantityTraded = Double.TryParse(data[5], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
                     obj.TradePriceWghtAvgPrice = Double.TryParse(data[6], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
                     obj.Remarks = data[7];
-                    //obj.Filler1 = Double.TryParse(data[8], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
                     masters.Add(obj);
                     line = sr.ReadLine();
                 }
@@ -187,25 +181,23 @@ namespace HouseOfTrader.Droid
                 while (line != null)
                 {
                     var data = line.Split(',');
-                    var obj = new FutureBhavCopy
-                    {
-                        INSTRUMENT = data[0],
-                        SYMBOL = data[1],
-                        EXPIRY_DT = DateTime.Parse(data[2]),
-                        STRIKE_PR = double.Parse(data[3]),
-                        OPTION_TYP = data[4],
-                        OPEN = double.Parse(data[5]),
-                        HIGH = double.Parse(data[6]),
-                        LOW = double.Parse(data[7]),
-                        CLOSE = double.Parse(data[8]),
-                        SETTLE_PR = double.Parse(data[9]),
-                        CONTRACTS = double.Parse(data[10]),
-                        VAL_INLAKH = double.Parse(data[11]),
-                        OPEN_INT = double.Parse(data[12]),
-                        CHG_IN_OI = double.Parse(data[13]),
-                        TIMESTAMP = DateTime.Parse(data[14]),
-                        Filler1 = data[15]
-                    };
+                    var obj = new FutureBhavCopy();
+                    obj.INSTRUMENT = data[0];
+                    obj.SYMBOL = data[1];
+                    obj.EXPIRY_DT = DateTime.Parse(data[2]);
+                    obj.STRIKE_PR = Double.TryParse(data[3], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.OPTION_TYP = data[4];
+                    obj.OPEN = Double.TryParse(data[5], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.HIGH = Double.TryParse(data[6], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.LOW = Double.TryParse(data[7], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CLOSE = Double.TryParse(data[8], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.SETTLE_PR = Double.TryParse(data[9], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CONTRACTS = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.VAL_INLAKH = Double.TryParse(data[11], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.OPEN_INT = Double.TryParse(data[12], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.CHG_IN_OI = Double.TryParse(data[13], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.TIMESTAMP = DateTime.Parse(data[14]);
+                    obj.Filler1 = data[15];
                     masters.Add(obj);
                     line = sr.ReadLine();
                 }
@@ -235,6 +227,50 @@ namespace HouseOfTrader.Droid
                     obj.NM52WH = data[9];
                     obj.NM52WL = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
 
+                    masters.Add(obj);
+                    line = sr.ReadLine();
+                }
+            }
+            return masters;
+        }
+
+        public List<BseSlb> GetBseSlb(string filename)
+        {
+            List<BseSlb> masters = new List<BseSlb>();
+            using (StreamReader sr = new StreamReader(File.Open(filename, FileMode.Open)))
+            {
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    var data = line.Split(',');
+                    var obj = new BseSlb();
+                    obj.Segment = data[0];
+                    obj.Txn_Date = data[1];
+                    obj.SLB_Code = Double.TryParse(data[2], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.SLB_Symbol = data[3];
+                    obj.Cash_Code = Double.TryParse(data[4], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Cash_Symbol = data[5];
+                    obj.Scrip_Name = data[6];
+                    obj.Expiry_Date = DateTime.Parse(data[7]);
+                    obj.FC_Type = data[8];
+                    obj.ISIN_Code = data[9];
+                    obj.Open_Price = Double.TryParse(data[10], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.High_Price = Double.TryParse(data[11], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Low_Price = Double.TryParse(data[12], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Close_Price = Double.TryParse(data[13], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.No_of_Trades = Double.TryParse(data[14], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Total_Quantity = Double.TryParse(data[15], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Net_Turnover = Double.TryParse(data[16], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Cash_PDCP = Double.TryParse(data[17], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Underlying_Value = Double.TryParse(data[18], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Cash_TDCP = Double.TryParse(data[19], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Avg_Qty_Per_Txn = Double.TryParse(data[20], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Avg_LFee_Per_Share = Double.TryParse(data[21], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Annualized_Yield = Double.TryParse(data[22], out DEFAULTDOUBLE) ? DEFAULTDOUBLE : DEFAULTDOUBLE;
+                    obj.Filler02 = data[23];
+                    obj.Filler03 = data[24];
+                    obj.Filler04 = data[25];
+                    obj.Filler05 = data[26];
                     masters.Add(obj);
                     line = sr.ReadLine();
                 }

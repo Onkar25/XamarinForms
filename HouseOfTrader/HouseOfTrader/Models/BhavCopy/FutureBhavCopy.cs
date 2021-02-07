@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HouseOfTrader.Models.BhavCopy
+namespace HouseOfTrader.Models
 {
     public struct FutureBhavCopy
     {

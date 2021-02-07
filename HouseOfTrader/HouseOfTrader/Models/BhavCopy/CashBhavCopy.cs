@@ -1,6 +1,5 @@
 ﻿using System;
-
-namespace HouseOfTrader.Models.BhavCopy
+namespace HouseOfTrader.Models
 {
     public class CashBhavCopy
     {

@@ -1,4 +1,4 @@
-﻿namespace HouseOfTrader.Models.PreOpenMarket
+﻿namespace HouseOfTrader.Models
 {
     public class MWPreOpenMarket
     {

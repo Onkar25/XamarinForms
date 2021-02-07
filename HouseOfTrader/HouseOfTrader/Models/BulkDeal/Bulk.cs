@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HouseOfTrader.Models.BulkDeal
+namespace HouseOfTrader.Models
 {
     public class Bulk
     {
