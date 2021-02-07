@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="HouseOfTrader.Views.UploadFiles"
+    Title="Upload Files">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="LabelProperty"
+                TargetType="Label">
+                <Setter
+                    Property="TextColor"
+                    Value="Black" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="CenterAndExpand" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="StartAndExpand" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Label
+                Text="Upload Files"
+                VerticalOptions="Start"
+                HorizontalOptions="CenterAndExpand" />
+
+            <Grid
+                RowSpacing="10"
+                ColumnSpacing="10"
+                Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="*" />
+                    <RowDefinition
+                        Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Text="Category"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Style="{StaticResource LabelProperty}" />
+                <Picker
+                    HorizontalTextAlignment="Center"
+                    Title="-- Select --"
+                    ItemsSource="{Binding CategoriesList}"
+                    ItemDisplayBinding="{Binding CategoryName}"
+
+                    Grid.Column="1"
+                    Grid.Row="0" />
+                <Label
+                    IsVisible="{Binding IsSubCategoryEnable}"
+                    Text="Sub-Category"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Style="{StaticResource LabelProperty}" />
+                <Picker
+                    IsVisible="{Binding IsSubCategoryEnable}"
+                    Grid.Column="1"
+                    Grid.Row="1" />
+                <Label
+                    Text="Date"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Style="{StaticResource LabelProperty}" />
+                <DatePicker
+                    Grid.Column="1"
+                    Grid.Row="2" />
+                <Label
+                    Text="File"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Style="{StaticResource LabelProperty}" />
+                <Button
+                    Text="Upload File"
+                    Grid.Column="1"
+                    Grid.Row="3" />
+                <Button
+                    Text="Save"
+                    Grid.Column="0"
+                    Grid.Row="4" />
+                <Button
+                    Text="Reset"
+                    Grid.Column="1"
+                    Grid.Row="4" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

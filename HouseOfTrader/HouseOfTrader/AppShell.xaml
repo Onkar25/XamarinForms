@@ -2,8 +2,9 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:HouseOfTrader.Views"
+       xmlns:bc="clr-namespace:HouseOfTrader.Views.BhavCopy"
        Title="HouseOfTrader"
-       x:Class="HouseOfTrader.AppShell">
+       x:Class="HouseOfTrader.AppShell" FlyoutHeaderBehavior="Scroll">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -20,7 +21,7 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="Red"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
             </Style>
@@ -28,12 +29,14 @@
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
-
-    <TabBar>
-        <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
-    </TabBar>
-
+    <FlyoutItem Title="Upload Files" >
+         <ShellContent Title="Upload Files" Icon="icon_about.png" Route="UploadFiles" ContentTemplate="{DataTemplate local:UploadFiles}" />
+      
+    </FlyoutItem>
+     <FlyoutItem Title="Bhav Copy" >
+         <ShellContent Title="Cash" Icon="icon_about.png" Route="Cash_BhavCopy" ContentTemplate="{DataTemplate bc:Cash_BhavCopy}" />
+        <ShellContent Title="Future" Icon="icon_feed.png" Route="Future_BhavCopy" ContentTemplate="{DataTemplate bc:Future_BhavCopy}" />
+    </FlyoutItem>
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//LoginPage");
