@@ -20,5 +20,6 @@
     <Folder Include="Models\SlbsBhavCopy\" />
     <Folder Include="Views\BhavCopy\" />
     <Folder Include="Views\Volatility\" />
+    <Folder Include="Views\CustomViews\" />
   </ItemGroup>
 </Project>

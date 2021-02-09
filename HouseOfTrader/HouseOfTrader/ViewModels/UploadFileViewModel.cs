@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using HouseOfTrader.Views;
+using Xamarin.Forms;
 
 namespace HouseOfTrader.ViewModels
 {
@@ -33,10 +36,132 @@ namespace HouseOfTrader.ViewModels
                 OnPropertyChanged();
             }
         }
-        public bool IsSubCategoryEnable { get; set; } = true;
+
+        bool _IsSubCategoryEnable;
+        public bool IsSubCategoryEnable
+        {
+            get
+            { return _IsSubCategoryEnable; }
+            set
+            {
+                _IsSubCategoryEnable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool _IsUploadButtonVisible;
+        public bool IsUploadButtonVisible
+        {
+            get
+            { return _IsUploadButtonVisible; }
+            set
+            {
+                _IsUploadButtonVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool _IsSaveEnable;
+        public bool IsSaveEnable
+        {
+            get
+            { return _IsSaveEnable; }
+            set
+            {
+                _IsSaveEnable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool _IsUploadLabelVisible;
+        public bool IsUploadLabelVisible
+        {
+            get
+            { return _IsUploadLabelVisible; }
+            set
+            {
+                _IsUploadLabelVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string _UploadFilePath;
+        public string UploadFilePath
+        {
+            get
+            { return _UploadFilePath; }
+            set
+            {
+                _UploadFilePath = value;
+                OnPropertyChanged();
+            }
+        }
+
+        Category _SelectedCategory;
+        public Category SelectedCategory
+        {
+            get
+            {
+                return _SelectedCategory;
+            }
+            set
+            {
+                if (_SelectedCategory != value)
+                {
+                    _SelectedCategory = value;
+                    switch (SelectedCategory.CategoryType)
+                    {
+                        case Categories.BhavCopy:
+                        case Categories.Volatility:
+                            IsSubCategoryEnable = true;
+                        break;
+                        case Categories.BulkDeal:
+                        case Categories.FII:
+                        case Categories.InsiderTrade:
+                        case Categories.PreOpenMarket:
+                        case Categories.SLBSBhavCopy:
+                        case Categories.Stock360FNOAnalysis:
+                            IsSubCategoryEnable = false;
+                        break;
+                        default:
+                            IsSubCategoryEnable = false;
+                        break;
+                    }
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand UploadCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+        public ICommand ResetCommand { get; set; }
+
+        public IFileTypes fileTypes;
         public UploadFileViewModel()
         {
             CategoriesList = GetCategories();
+            _IsSubCategoryEnable = true;
+            _IsUploadButtonVisible = true;
+            _IsUploadLabelVisible = false;
+            _IsSaveEnable = false;
+         
+            UploadCommand = new Command(async() => {
+                UploadFilePath = await fileTypes.ReadFile();
+                if (!string.IsNullOrEmpty(UploadFilePath))
+                {
+                    IsUploadButtonVisible = false;
+                    IsUploadLabelVisible = true;
+                    _IsSaveEnable = true;
+                }
+                else
+                {
+                    IsUploadButtonVisible = true;
+                    IsUploadLabelVisible = false;
+                    _IsSaveEnable = false;
+                }
+            });
+            SaveCommand = new Command(() => fileTypes.ReadFile());
+            ResetCommand = new Command(() => fileTypes.ReadFile());
         }
 
         public List<Category> GetCategories()
@@ -57,41 +182,6 @@ namespace HouseOfTrader.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        Category _SelectedCategory;
-        public Category SelectedCategory
-        {
-            get
-            {
-                return _SelectedCategory;
-            }
-            set
-            {
-                if (_SelectedCategory != value)
-                {
-                    _SelectedCategory = value;
-                    switch (SelectedCategory.CategoryType)
-                    {
-                        case Categories.BhavCopy:
-                        case Categories.Volatility:
-                            IsSubCategoryEnable = true;
-                            break;
-                        case Categories.BulkDeal:
-                        case Categories.FII:
-                        case Categories.InsiderTrade:
-                        case Categories.PreOpenMarket:
-                        case Categories.SLBSBhavCopy:
-                        case Categories.Stock360FNOAnalysis:
-                            IsSubCategoryEnable = false;
-                            break;
-                        default:
-                            IsSubCategoryEnable = false;
-                            break;
-                    }
-                    OnPropertyChanged();
-                }
-            }
         }
     }
 }
