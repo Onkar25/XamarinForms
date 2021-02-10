@@ -9,14 +9,14 @@ namespace HouseOfTrader.ViewModels
 {
     public enum Categories
     {
-        BhavCopy,
+        FutureBhavCopy,
+        CashBhavCopy,
         BulkDeal,
-        FII,
-        InsiderTrade,
-        PreOpenMarket,
-        SLBSBhavCopy,
-        Stock360FNOAnalysis,
-        Volatility
+        CFInsiderTrading,
+        CFPledgeData,
+        MWPreOpenMarket,
+        BseSlb,
+        CMVolt
     }
     public class Category
     {
@@ -33,18 +33,6 @@ namespace HouseOfTrader.ViewModels
             set
             {
                 _CategoriesList = value;
-                OnPropertyChanged();
-            }
-        }
-
-        bool _IsSubCategoryEnable;
-        public bool IsSubCategoryEnable
-        {
-            get
-            { return _IsSubCategoryEnable; }
-            set
-            {
-                _IsSubCategoryEnable = value;
                 OnPropertyChanged();
             }
         }
@@ -96,7 +84,8 @@ namespace HouseOfTrader.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        bool _IsCategorySelected;
+       
         Category _SelectedCategory;
         public Category SelectedCategory
         {
@@ -109,24 +98,8 @@ namespace HouseOfTrader.ViewModels
                 if (_SelectedCategory != value)
                 {
                     _SelectedCategory = value;
-                    switch (SelectedCategory.CategoryType)
-                    {
-                        case Categories.BhavCopy:
-                        case Categories.Volatility:
-                            IsSubCategoryEnable = true;
-                        break;
-                        case Categories.BulkDeal:
-                        case Categories.FII:
-                        case Categories.InsiderTrade:
-                        case Categories.PreOpenMarket:
-                        case Categories.SLBSBhavCopy:
-                        case Categories.Stock360FNOAnalysis:
-                            IsSubCategoryEnable = false;
-                        break;
-                        default:
-                            IsSubCategoryEnable = false;
-                        break;
-                    }
+                    _IsCategorySelected = true;
+                    fileTypes.SaveCategory(_SelectedCategory.CategoryType);
                     OnPropertyChanged();
                 }
             }
@@ -140,7 +113,6 @@ namespace HouseOfTrader.ViewModels
         public UploadFileViewModel()
         {
             CategoriesList = GetCategories();
-            _IsSubCategoryEnable = true;
             _IsUploadButtonVisible = true;
             _IsUploadLabelVisible = false;
             _IsSaveEnable = false;
@@ -149,9 +121,20 @@ namespace HouseOfTrader.ViewModels
                 UploadFilePath = await fileTypes.ReadFile();
                 if (!string.IsNullOrEmpty(UploadFilePath))
                 {
-                    IsUploadButtonVisible = false;
-                    IsUploadLabelVisible = true;
-                    _IsSaveEnable = true;
+                    
+                    if (_IsCategorySelected)
+                    {
+                        IsUploadButtonVisible = false;
+                        IsUploadLabelVisible = true;
+                        _IsSaveEnable = true;
+                    }
+
+                    else
+                    {
+                        IsUploadButtonVisible = true;
+                        IsUploadLabelVisible = false;
+                        _IsSaveEnable = false;
+                    }
                 }
                 else
                 {
@@ -161,20 +144,20 @@ namespace HouseOfTrader.ViewModels
                 }
             });
             SaveCommand = new Command(() => fileTypes.ReadFile());
-            ResetCommand = new Command(() => fileTypes.ReadFile());
+            ResetCommand = new Command(() => { fileTypes.Reset() });
         }
 
         public List<Category> GetCategories()
         {
             List<Category> CategoriesList = new List<Category>();
-            CategoriesList.Add(new Category { Id = 1, CategoryName = "Bhav Copy", CategoryType = Categories.BhavCopy });
-            CategoriesList.Add(new Category { Id = 2, CategoryName = "Bulk Deal", CategoryType = Categories.BulkDeal });
-            CategoriesList.Add(new Category { Id = 3, CategoryName = "FII", CategoryType = Categories.FII });
-            CategoriesList.Add(new Category { Id = 4, CategoryName = "Insider Trade", CategoryType = Categories.InsiderTrade });
-            CategoriesList.Add(new Category { Id = 5, CategoryName = "Pre Open Market", CategoryType = Categories.PreOpenMarket });
-            CategoriesList.Add(new Category { Id = 6, CategoryName = "SLBS Bhav Copy", CategoryType = Categories.SLBSBhavCopy });
-            CategoriesList.Add(new Category { Id = 7, CategoryName = "Stock 360 FNO Analysis", CategoryType = Categories.Stock360FNOAnalysis });
-            CategoriesList.Add(new Category { Id = 8, CategoryName = "Volatility", CategoryType = Categories.Volatility });
+            CategoriesList.Add(new Category { Id = 1, CategoryName = "Future Bhav Copy", CategoryType = Categories.FutureBhavCopy });
+            CategoriesList.Add(new Category { Id = 2, CategoryName = "Cash Deal", CategoryType = Categories.CashBhavCopy });
+            CategoriesList.Add(new Category { Id = 3, CategoryName = "Bulk Deal", CategoryType = Categories.BulkDeal });
+            CategoriesList.Add(new Category { Id = 4, CategoryName = "CF Insider Trade", CategoryType = Categories.CFInsiderTrading });
+            CategoriesList.Add(new Category { Id = 5, CategoryName = "CF Pledge Data", CategoryType = Categories.CFPledgeData });
+            CategoriesList.Add(new Category { Id = 6, CategoryName = "MW Pre Open Market", CategoryType = Categories.MWPreOpenMarket });
+            CategoriesList.Add(new Category { Id = 7, CategoryName = "Bse Slb", CategoryType = Categories.BseSlb });
+            CategoriesList.Add(new Category { Id = 8, CategoryName = "CM Volt", CategoryType = Categories.CMVolt });
             return CategoriesList;
         }
 

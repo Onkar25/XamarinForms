@@ -12,13 +12,19 @@ namespace HouseOfTrader.Views
 {
     public interface IFileTypes
     {
-        void GetFileType(Categories categories);
+        void GetFileType();
         Task<string> ReadFile();
+        void SaveFile();
+        void Reset();
+        void SaveCategory(Categories categories);
+        void SetDate(DateTime dateTime);
     }
     public partial class UploadFiles : ContentPage, IFileTypes
     {
+        Categories categories;
         UploadFileViewModel uploadFileViewModel;
         FileData file;
+        public DateTime dateTime;
         public UploadFiles()
         {
             InitializeComponent();
@@ -26,26 +32,54 @@ namespace HouseOfTrader.Views
             uploadFileViewModel.fileTypes = this;
             BindingContext = uploadFileViewModel;
         }
-        public void GetFileType(Categories categories)
+
+        public void SetDate(DateTime dateTime)
+        {
+            this.dateTime = dateTime;
+        }
+
+        public void SaveFile()
+        {
+            // SAVE TO DATABASE
+        }
+
+        public void SaveCategory(Categories categories)
+        {
+            this.categories = categories;
+        }
+
+        public void Reset()
+        {
+            // RESET ALL FIELDS TO DEFAULT VALUE
+        }
+
+        public void GetFileType()
         {
             switch (categories)
             {
-                case Categories.BhavCopy:
+                case Categories.FutureBhavCopy:
+                    ReadFutureBhavCopy();
+                    break;
+                case Categories.CashBhavCopy:
                     ReadCashBhavCopy();
                     break;
                 case Categories.BulkDeal:
+                    ReadBulk();
                     break;
-                case Categories.FII:
+                case Categories.CFInsiderTrading:
+                    ReadCFInsiderTrading();
                     break;
-                case Categories.InsiderTrade:
+                case Categories.CFPledgeData:
+                    ReadCFPledgeData();
                     break;
-                case Categories.PreOpenMarket:
+                case Categories.MWPreOpenMarket:
+                    ReadMWPreOpenMarket();
                     break;
-                case Categories.SLBSBhavCopy:
+                case Categories.BseSlb:
+                    ReadBseSlb();
                     break;
-                case Categories.Stock360FNOAnalysis:
-                    break;
-                case Categories.Volatility:
+                case Categories.CMVolt:
+                    ReadCMVolt();
                     break;
                 default:
                     break;
@@ -59,7 +93,7 @@ namespace HouseOfTrader.Views
                 return file.FileName;
             }
             return string.Empty;
-            }
+        }
         void ReadBseSlb()
         {
             try
@@ -191,5 +225,7 @@ namespace HouseOfTrader.Views
                 Debug.WriteLine("Exception : " + ex.Message);
             }
         }
+
+      
     }
 }

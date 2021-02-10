@@ -59,38 +59,28 @@
                     Grid.Column="1"
                     Grid.Row="0" />
                 <Label
-                    IsVisible="{Binding IsSubCategoryEnable}"
-                    Text="Sub-Category"
+                    Text="Date"
                     Grid.Column="0"
                     Grid.Row="1"
                     Style="{StaticResource LabelProperty}" />
-                <Picker
-                    IsVisible="{Binding IsSubCategoryEnable}"
-                    Grid.Column="1"
-                    Grid.Row="1" />
-                <Label
-                    Text="Date"
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    Style="{StaticResource LabelProperty}" />
                 <DatePicker
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Grid.Column="1" />
                 <Label
                     Text="File"
                     Grid.Column="0"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     Style="{StaticResource LabelProperty}" />
                 <Button
                     Text="Upload File"
                     Grid.Column="1"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     IsVisible="{Binding IsUploadButtonVisible}"
                     Command="{Binding UploadCommand}" />
                 <Label
                     IsVisible="{Binding IsUploadLabelVisible}"
                     Grid.Column="1"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     Text="{Binding UploadFilePath}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand" />
@@ -98,12 +88,12 @@
                     IsEnabled="{Binding IsSaveEnable}"
                     Text="Save"
                     Grid.Column="0"
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Command="{Binding SaveCommand}" />
                 <Button
                     Text="Reset"
                     Grid.Column="1"
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Command="{Binding ResetCommand}" />
             </Grid>
         </StackLayout>
