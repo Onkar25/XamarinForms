@@ -143,8 +143,8 @@ namespace HouseOfTrader.ViewModels
                     _IsSaveEnable = false;
                 }
             });
-            SaveCommand = new Command(() => fileTypes.ReadFile());
-            ResetCommand = new Command(() => { fileTypes.Reset() });
+            SaveCommand = new Command(() => fileTypes.SaveFile());
+            ResetCommand = new Command(() =>  fileTypes.Reset() );
         }
 
         public List<Category> GetCategories()

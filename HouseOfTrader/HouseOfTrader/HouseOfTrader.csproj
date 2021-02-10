@@ -9,6 +9,7 @@
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\BhavCopy\" />
@@ -21,5 +22,11 @@
     <Folder Include="Views\BhavCopy\" />
     <Folder Include="Views\Volatility\" />
     <Folder Include="Views\CustomViews\" />
+    <Folder Include="Services\DatabaseService\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="Services\DatabaseService\BaseDatabaseModule\" />
+    <Folder Include="Services\DatabaseService\DatabaseConnection\" />
+    <Folder Include="Services\DatabaseService\DatabaseProvider\" />
+    <Folder Include="Services\DatabaseService\DatabaseServiceManager\" />
   </ItemGroup>
 </Project>

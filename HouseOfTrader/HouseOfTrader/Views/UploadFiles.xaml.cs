@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HouseOfTrader.Models.BhavCopy;
 using HouseOfTrader.Services;
 using HouseOfTrader.ViewModels;
 using Plugin.FilePicker;
@@ -41,6 +42,7 @@ namespace HouseOfTrader.Views
         public void SaveFile()
         {
             // SAVE TO DATABASE
+            GetFileType();
         }
 
         public void SaveCategory(Categories categories)
@@ -191,6 +193,7 @@ namespace HouseOfTrader.Views
                 if (file != null)
                 {
                     var products = DependencyService.Get<IFetchData>().GetCashBhavCopy(file.FilePath);
+                    CashBhavCopyRepository.Instance.AddMultipleRecord(products);
                     Debug.WriteLine("TOTAL COUNT : " + products.Count());
                 }
             }
@@ -206,6 +209,7 @@ namespace HouseOfTrader.Views
                 if (file != null)
                 {
                     var products = DependencyService.Get<IFetchData>().GetFutureBhavCopy(file.FilePath);
+                    
                     //FORMULA 
                     var res = from element in products
                               where element.INSTRUMENT == "FUTIDX" || element.INSTRUMENT == "FUTSTK"

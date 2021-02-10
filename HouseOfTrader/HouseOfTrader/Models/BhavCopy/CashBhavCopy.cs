@@ -1,8 +1,12 @@
 ﻿using System;
+using SQLite;
+
 namespace HouseOfTrader.Models
 {
     public class CashBhavCopy
     {
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
         public string SYMBOL { get; set; }
         public string SERIES { get; set; }
         public DateTime DATE1 { get; set; }
